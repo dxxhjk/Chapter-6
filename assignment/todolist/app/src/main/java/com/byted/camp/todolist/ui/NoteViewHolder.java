@@ -7,11 +7,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.byted.camp.todolist.NoteOperator;
 import com.byted.camp.todolist.R;
 import com.byted.camp.todolist.beans.Note;
+import com.byted.camp.todolist.beans.Priority;
 import com.byted.camp.todolist.beans.State;
 
 import java.text.SimpleDateFormat;
@@ -33,6 +35,7 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
     private TextView contentText;
     private TextView dateText;
     private View deleteBtn;
+    private RelativeLayout bc;
 
     public NoteViewHolder(@NonNull View itemView, NoteOperator operator) {
         super(itemView);
@@ -42,11 +45,13 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
         contentText = itemView.findViewById(R.id.text_content);
         dateText = itemView.findViewById(R.id.text_date);
         deleteBtn = itemView.findViewById(R.id.btn_delete);
+        bc = itemView.findViewById(R.id.BC);
     }
 
     public void bind(final Note note) {
         contentText.setText(note.getContent());
         dateText.setText(SIMPLE_DATE_FORMAT.format(note.getDate()));
+        bc.setBackgroundColor(Priority.getBackGroundColor(note.getPriority()));
 
         checkBox.setOnCheckedChangeListener(null);
         checkBox.setChecked(note.getState() == State.DONE);
